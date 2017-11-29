@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>pwpricedrop</name>
+	<displayName><![CDATA[Price Drop]]></displayName>
+	<version><![CDATA[0.1]]></version>
+	<description><![CDATA[This is module for price drop]]></description>
+	<author><![CDATA[PrestaWeb.ru]]></author>
+	<tab><![CDATA[other]]></tab>
+	<is_configurable>1</is_configurable>
+	<need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>
