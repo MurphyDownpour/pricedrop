@@ -49,7 +49,7 @@ class pwpricedrop extends Module
                 return $this->display(__FILE__, 'getContent.tpl');
             }
 
-            Configuration::update('PRICEDROP_QUANTITY', $quantity);
+            Configuration::updateValue('PRICEDROP_QUANTITY', $quantity);
             $this->context->smarty->assign('success', 'yes');
             return $this->display(__FILE__, 'getContent.tpl');
         }
@@ -62,6 +62,18 @@ class pwpricedrop extends Module
     }
 
 	public function hookdisplayHome($params){
+        $limit = Configuration::get('PRICEDROP_QUANTITY');
+        $sql = 'SELECT ' .
+                _DB_PREFIX_. 'product.quantity_discount, ' .
+                _DB_PREFIX_ . 'product.price, ' .
+                _DB_PREFIX_ . 'product_lang.name, ' .
+                _DB_PREFIX_ . 'product_lang.available_now ' .
+                'FROM ' .  _DB_PREFIX_ . 'product ' .
+                'INNER JOIN ' . _DB_PREFIX_ . 'product_lang ' .
+                'ON ' . _DB_PREFIX_ . 'product.id_product = ' . _DB_PREFIX_ . 'product_lang.id_product ' .
+                'WHERE ' . _DB_PREFIX_ . 'product.quantity_discount > 0 LIMIT ' . $limit;
+        $products = Db::getInstance()->executeS($sql);
+        $this->context->smarty->assign('products', $products);
 		return $this->display(__FILE__, 'pwpricedrop.tpl');
 	}
 
